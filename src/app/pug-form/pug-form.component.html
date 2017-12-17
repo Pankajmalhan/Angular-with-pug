@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+<form [formGroup]="dataForm" (ngSubmit)="onSubmit()">
+  <div class="form-group" 
+  [ngClass]="{'has-error':dataForm.get('employeeName').touched && !dataForm.get('employeeName').valid}">
+    <label for="employeeName">Employee Name</label>
+    <input type="text" class="form-control"
+    formControlName="employeeName"
+    id="employeeName" aria-describedby="employeeName" placeholder="Enter employee name">
+    <div *ngIf="dataForm.get('employeeName').touched && dataForm.get('employeeName').hasError('maxLength')"
+     class="help-block">Name can't be greter than 15 characters</div>
+    <div *ngIf="dataForm.get('employeeName').touched && dataForm.get('employeeName').hasError('pattern')"
+     class="help-block">Name field only accept character data</div>
+    <div *ngIf="dataForm.get('employeeName').touched && dataForm.get('employeeName').hasError('required')"
+     class="help-block">Name field required</div>
+  </div>
+  <div class="form-group" [ngClass]="{'has-error':dataForm.get('employeeAge').touched && !dataForm.get('employeeAge').valid}">
+    <label for="employeeAge">Age</label>
+    <input type="number" class="form-control"
+    formControlName="employeeAge"
+    id="employeeAge" placeholder="Age" min="0">
+    <div *ngIf="dataForm.get('employeeAge').touched && dataForm.get('employeeAge').hasError('max')"
+    class="help-block">Age can't be greater than 50</div>
+   <div *ngIf="dataForm.get('employeeAge').touched && dataForm.get('employeeAge').hasError('min')"
+    class="help-block">Age can't be less than 20</div>
+   <div *ngIf="dataForm.get('employeeAge').touched && dataForm.get('employeeAge').hasError('required')"
+    class="help-block">Age field required</div>
+  </div>
+  <div class="form-group">
+    <label for="employeeProject">Project</label>
+    <select class="form-control" 
+    formControlName="employeeProject"
+    id="employeeProject">
+      <option *ngFor="let item of projectList" value="{{item}}">{{item}}</option>
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+</div>
+</div>

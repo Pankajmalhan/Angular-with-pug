@@ -1,0 +1,28 @@
+div.row
+    div(class="col-md-8 col-md-offset-2")
+        form([formGroup]="dataForm", (ngSubmit)="onSubmit()")
+            div.form-group([ngClass]="{'has-error':(dataForm.get('employeeName').touched || formSubmitted) && !dataForm.get('employeeName').valid}")
+                label(for="employeeName") Employee Name
+                input(type="text", class="form-control",formControlName="employeeName",
+                        id="employeeName", aria-describedby="employeeName",maxLength="15",
+                        placeholder="Enter employee name")
+                div.help-block(*ngIf="(dataForm.get('employeeName').touched || formSubmitted) && dataForm.get('employeeName').hasError('pattern')"
+                            ) Name field only accept character data
+                div.help-block(*ngIf="(dataForm.get('employeeName').touched ||formSubmitted) && dataForm.get('employeeName').hasError('required')"
+                        ) Name field required
+            div.form-group([ngClass]="{'has-error':(dataForm.get('employeeAge').touched || formSubmitted)&& !dataForm.get('employeeAge').valid}")
+                label(for="employeeAge") Age
+                input(type="number" class="form-control"
+                        formControlName="employeeAge"
+                        id="employeeAge" placeholder="Age" min="0")
+                div.help-block(*ngIf="(dataForm.get('employeeAge').touched || formSubmitted) && dataForm.get('employeeAge').hasError('max')"
+                        ) Age can't be greater than 50
+                div.help-block(*ngIf="(dataForm.get('employeeAge').touched || formSubmitted) && dataForm.get('employeeAge').hasError('min')"
+                        ) Age can't be less than 20
+                div.help-block(*ngIf="(dataForm.get('employeeAge').touched || formSubmitted)&& dataForm.get('employeeAge').hasError('required')"
+                        ) Age field required
+            div.form-group
+                label(for="employeeProject") Project
+                select.form-control(formControlName="employeeProject",id="employeeProject")
+                    option(*ngFor="let item of projectList" value="{{item}}") {{item}}
+            button(type="submit" class="btn btn-primary") Submit
